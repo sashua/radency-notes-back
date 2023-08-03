@@ -1,4 +1,9 @@
-# compiled output
+# Other stuff
+temp
+prisma/dev.db
+.env
+
+# Compiled output
 /dist
 /node_modules
 
