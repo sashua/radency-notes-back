@@ -1,73 +1,77 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Notes REST Service
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)
+![Node.js](https://img.shields.io/badge/Node.js-272727?logo=nodedotjs&logoColor=339933)
+![Nest.js](https://img.shields.io/badge/Nest.js-101010?logo=nestjs&logoColor=E0234E)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?logo=sqlite&logoColor=white)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+REST API for a notes app where users can create, edit, archive and delete their notes.
 
-## Description
+## API reference
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+| Endpoint            | Description                               |
+| :------------------ | :---------------------------------------- |
+| `GET /categories`   | Get all categories                        |
+| `GET /notes/stats`  | Get categories with aggregated statistics |
+| `GET /notes`        | Get all notes                             |
+| `GET /notes/:id`    | Get single note                           |
+| `POST /notes`       | Create note                               |
+| `PATCH /notes/:id`  | Edit note                                 |
+| `DELETE /notes/:id` | Delete note                               |
 
-## Installation
+## Run server locally
 
-```bash
-$ npm install
+You must have [Node.js](https://nodejs.org/en/download/) installed on your computer.
+
+### 1. Clone the repository
+
+```sh
+# by SSH
+git clone git@github.com:sashua/radency-notes-back.git
+
+# or HTTPS
+git clone https://github.com/sashua/radency-notes-back.git
 ```
 
-## Running the app
+### 2. Go to the project directory and install the dependencies
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```sh
+cd radency-notes-back
+npm install
 ```
 
-## Test
+### 3. Start the server
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```sh
+npm run start
 ```
 
-## Support
+By default, the server starts listening on port `3000`, you can configure your own port by setting the value `SERVER_PORT` in the `.env` file.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Notes
 
-## Stay in touch
+```ts
+interface Category {
+  id: string;
+  name: string;
+  icon: string;
+}
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+interface Statistics extends Category {
+  active: number;
+  archived: number;
+}
 
-## License
+interface Note {
+  id: string;
+  categoryId: string;
+  name: string;
+  content?: string;
+  archived?: string;
+  createdAt: string;
+}
 
-Nest is [MIT licensed](LICENSE).
+type CreateNoteDto = Pick<Note, 'categoryId' | 'name' | 'content'>;
+type UpdateNoteDto = Partial<Omit<Note, 'id' | 'createdAt'>>;
+```
