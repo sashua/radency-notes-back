@@ -1,4 +1,7 @@
-# compiled output
+# Other stuff
+temp
+
+# Compiled output
 /dist
 /node_modules
 

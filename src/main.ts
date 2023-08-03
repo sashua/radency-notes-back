@@ -9,7 +9,9 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
-  const port = configService.get('PORT') ?? 3000;
+  const port = configService.get('SERVER_PORT') ?? 3000;
+  console.log('🚧', port);
+
   await app.listen(port, () =>
     Logger.log(`Server is listening on port ${port}`),
   );

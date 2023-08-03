@@ -1,7 +1,7 @@
 export default [
   {
     name: 'Random Thought',
-    icon: 'icon-random',
+    icon: 'https://robohash.org/icon-random.png?set=set4',
     notes: [
       {
         name: 'Walking home',
@@ -11,7 +11,7 @@ export default [
   },
   {
     name: 'Task',
-    icon: 'icon-task',
+    icon: 'https://robohash.org/icon-task.png?set=set4',
     notes: [
       {
         name: 'Project!!!',
@@ -27,7 +27,7 @@ export default [
   },
   {
     name: 'Idea',
-    icon: 'icon-idea',
+    icon: 'https://robohash.org/icon-idea.png?set=set4',
     notes: [
       {
         name: 'New Business',
@@ -43,7 +43,7 @@ export default [
   },
   {
     name: 'Quote',
-    icon: 'icon-quote',
+    icon: 'https://robohash.org/icon-quote.png?set=set4',
     notes: [
       {
         name: 'Inspirational Quote',
